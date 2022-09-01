@@ -13,6 +13,9 @@
 		EE659C8328BB9310002C5948 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE659C8128BB9310002C5948 /* Main.storyboard */; };
 		EE659C8528BB9312002C5948 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE659C8428BB9312002C5948 /* Assets.xcassets */; };
 		EE659C8828BB9312002C5948 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE659C8628BB9312002C5948 /* LaunchScreen.storyboard */; };
+		EE659C9028BB9456002C5948 /* VideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE659C8F28BB9456002C5948 /* VideoCapture.swift */; };
+		EE659C9228BB9F3E002C5948 /* DrumSoundAction.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = EE659C9128BB9F3E002C5948 /* DrumSoundAction.mlmodel */; };
+		EE659C9428BBA0F5002C5948 /* Predictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE659C9328BBA0F5002C5948 /* Predictor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		EE659C8428BB9312002C5948 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE659C8728BB9312002C5948 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE659C8928BB9312002C5948 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE659C8F28BB9456002C5948 /* VideoCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCapture.swift; sourceTree = "<group>"; };
+		EE659C9128BB9F3E002C5948 /* DrumSoundAction.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DrumSoundAction.mlmodel; sourceTree = "<group>"; };
+		EE659C9328BBA0F5002C5948 /* Predictor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Predictor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +62,12 @@
 		EE659C7A28BB9310002C5948 /* ActDrum */ = {
 			isa = PBXGroup;
 			children = (
+				EE659C9128BB9F3E002C5948 /* DrumSoundAction.mlmodel */,
 				EE659C7B28BB9310002C5948 /* AppDelegate.swift */,
 				EE659C7D28BB9310002C5948 /* SceneDelegate.swift */,
 				EE659C7F28BB9310002C5948 /* ViewController.swift */,
+				EE659C8F28BB9456002C5948 /* VideoCapture.swift */,
+				EE659C9328BBA0F5002C5948 /* Predictor.swift */,
 				EE659C8128BB9310002C5948 /* Main.storyboard */,
 				EE659C8428BB9312002C5948 /* Assets.xcassets */,
 				EE659C8628BB9312002C5948 /* LaunchScreen.storyboard */,
@@ -138,8 +147,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE659C9028BB9456002C5948 /* VideoCapture.swift in Sources */,
 				EE659C8028BB9310002C5948 /* ViewController.swift in Sources */,
+				EE659C9228BB9F3E002C5948 /* DrumSoundAction.mlmodel in Sources */,
 				EE659C7C28BB9310002C5948 /* AppDelegate.swift in Sources */,
+				EE659C9428BBA0F5002C5948 /* Predictor.swift in Sources */,
 				EE659C7E28BB9310002C5948 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
