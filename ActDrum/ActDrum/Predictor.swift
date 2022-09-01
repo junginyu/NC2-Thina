@@ -20,7 +20,7 @@ protocol PredictorDelegate: AnyObject {
 class Predictor {
     weak var delegate: PredictorDelegate?
     
-    let predictionWindowSize = 30
+    let predictionWindowSize = 5
     var posesWindow: [VNHumanBodyPoseObservation] = []
     
     init() {
@@ -100,7 +100,7 @@ class Predictor {
         if numAvailbleFrames < observationsNeeded {
             for _ in 0 ..< (observationsNeeded - numAvailbleFrames) {
                 do {
-                    let oneFrameMultiArray = try MLMultiArray(shape: [5, 3, 18], dataType: .double)
+                    let oneFrameMultiArray = try MLMultiArray(shape: [5, 3, 18], dataType: .float32)
                     try resetMultiArray(oneFrameMultiArray)
                     multiArrayBuffer.append(oneFrameMultiArray)
                 } catch {

@@ -47,8 +47,8 @@ class VideoCapture: NSObject {
 
 extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        print(#function)
-        predictor.estimation(sampleBuffer: sampleBuffer)
+//        print(#function)
+//        predictor.estimation(sampleBuffer: sampleBuffer)
     }
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         print(#function)
