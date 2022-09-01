@@ -12,9 +12,9 @@
 ## :green_heart: Screenshots
 
 ## :sparkles: Skills & Tech Stack
-- SwiftUI
+- Vision
 - UIKit
-- CoreData
+- AVFoundation
 
 ## :lock_with_ink_pen: License
 [MIT](https://choosealicense.com/licenses/mit/)
