@@ -36,15 +36,23 @@ class VideoCapture: NSObject {
     }
     
     func startCaptureSession() {
+        print(#function)
         captureSession.startRunning()
-        
+        print("-1")
         // Add an entry point for that output
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoDispatchQueue"))
+        print("0")
     }
 }
 
 extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        print(#function)
         predictor.estimation(sampleBuffer: sampleBuffer)
     }
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        print(#function)
+        predictor.estimation(sampleBuffer: sampleBuffer)
+    }
+    
 }

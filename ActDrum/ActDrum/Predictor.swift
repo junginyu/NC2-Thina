@@ -8,6 +8,7 @@
 import Foundation
 import Vision
 import UIKit
+import AVFoundation
 
 typealias DrumActionClassifier = DrumSoundAction
 
@@ -27,9 +28,12 @@ class Predictor {
     }
     
     func estimation(sampleBuffer: CMSampleBuffer) {
+        print(#function)
         let requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, orientation: .up)
         let request = VNDetectHumanBodyPoseRequest(completionHandler: bodyPoseHandler)
+        
         do {
+            // MARK: - 오류 발생 1
             try requestHandler.perform([request])
         } catch {
             print("Unable to perform this request, with error: \(error)")
@@ -37,6 +41,7 @@ class Predictor {
     }
     
     func bodyPoseHandler(request: VNRequest, error: Error?) {
+        print(#function)
         guard let observations = request.results as? [VNHumanBodyPoseObservation] else { return }
         
         observations.forEach {
@@ -44,19 +49,26 @@ class Predictor {
         }
         
         if let result = observations.first {
-            dump(result.description)
+            print(result)
             storeObservation(result)
-            
             labelActionType()
         }
     }
     
     func labelActionType() {
+        print(#function)
         guard let drumActionClassifier = try? DrumSoundAction(configuration: MLModelConfiguration()),
-        let poseMultiArray = prepareInputWithObservations(posesWindow),
-        let predictions = try? drumActionClassifier.prediction(poses: poseMultiArray) else {
+              let poseMultiArray = prepareInputWithObservations(posesWindow) else {
+            print("A")
             return
         }
+        print("B")
+        // MARK: - 오류 2
+        guard let predictions = try? drumActionClassifier.prediction(poses: poseMultiArray) else {
+            print("C")
+            return
+        }
+        print("D")
         
         let label = predictions.label
         let confidence = predictions.labelProbabilities[label] ?? 0
@@ -64,25 +76,31 @@ class Predictor {
         delegate?.predictor(self, didLabelAction: label, with: confidence)
     }
     
+    
     func prepareInputWithObservations(_ observations: [VNHumanBodyPoseObservation]) -> MLMultiArray? {
+        print(#function)
         let numAvailbleFrames = observations.count
-        let observationsNeeded = 30
+        let observationsNeeded = 5
         var multiArrayBuffer = [MLMultiArray]()
         
         for frameIndex in 0 ..< min(numAvailbleFrames, observationsNeeded) {
             let pose = observations[frameIndex]
             do {
+                print("11")
                 let oneFrameMultiArray = try pose.keypointsMultiArray()
                 multiArrayBuffer.append(oneFrameMultiArray)
+                print("12")
             } catch {
+                print("13")
                 continue
+                
             }
         }
         
         if numAvailbleFrames < observationsNeeded {
             for _ in 0 ..< (observationsNeeded - numAvailbleFrames) {
                 do {
-                    let oneFrameMultiArray = try MLMultiArray(shape: [1, 3, 18], dataType: .double)
+                    let oneFrameMultiArray = try MLMultiArray(shape: [5, 3, 18], dataType: .double)
                     try resetMultiArray(oneFrameMultiArray)
                     multiArrayBuffer.append(oneFrameMultiArray)
                 } catch {
@@ -94,11 +112,13 @@ class Predictor {
     }
     
     func resetMultiArray(_ predictionWindow: MLMultiArray, with value: Double = 0.0) throws {
+        print(#function)
         let pointer = try UnsafeMutableBufferPointer<Double>(predictionWindow)
         pointer.initialize(repeating: value)
     }
     
     func storeObservation(_ observation: VNHumanBodyPoseObservation) {
+        print(#function)
         if posesWindow.count >= predictionWindowSize {
             posesWindow.removeFirst()
         }
@@ -106,6 +126,7 @@ class Predictor {
     }
 
     func processObservation(_ observation: VNHumanBodyPoseObservation) {
+        print(#function)
         do {
             let recognizedPoints = try observation.recognizedPoints(forGroupKey: .all)
             let displayedPoints = recognizedPoints.map {
